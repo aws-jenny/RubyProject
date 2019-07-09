@@ -1,0 +1,32 @@
+<h1>Edit Certificate</h1>
+
+<%= form_for :certificate, url: certificate_path(@certificate), method: :patch do |f| %>
+    <% if @certificate.errors.any?  %>
+        <% @certificate.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+        <% end %>    
+    <% end %>
+    <p>
+        <%=f.label :name %><br>
+        <%=f.text_field(:name, {:class => 'form-control'})  %>
+    </p>
+
+    <p>
+        <%=f.label :description %><br>
+        <%=f.text_area(:description, {:class => 'form-control'})  %>
+    </p>
+
+    <p>
+        <%=f.label :exam_fee %><br>
+        <%=f.number_field :exam_fee, :step => 0.01, class:'form-control'  %>
+    </p>
+
+    <p>
+        <%= f.label :isReimbursable, 'Reimbursable' %>
+        <%= f.select :isReimbursable, [['Yes',true],['No',false]], {:class => 'form-control'} %>
+    </p>
+
+    <p>
+        <%=f.submit({:class => 'btn btn-primary'}) %>
+    </p>
+<% end %>

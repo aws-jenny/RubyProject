@@ -1,0 +1,15 @@
+<h1>Certificates</h1>
+
+<%= link_to 'New Certificate', new_certificate_path, :class => 'btn btn-sm btn-success' %>
+
+<% @certificates.each do |certificate| %>
+
+    <div class="well">
+        <h3><%= certificate.name %></h3>
+        <p><%= certificate.description %></p>
+
+        <%= link_to "Read More", certificate_path(certificate), :class => 'btn btn-secondary' %>
+
+    </div>
+
+<% end %>

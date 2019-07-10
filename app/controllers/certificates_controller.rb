@@ -5,6 +5,8 @@ class CertificatesController < ApplicationController
 
   def show
     @certificate = Certificate.find(params[:id])
+    @status = "add"
+    puts @status
   end
 
   def new

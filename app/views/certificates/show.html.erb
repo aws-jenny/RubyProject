@@ -1,11 +1,28 @@
-<h2><%= @certificate.name %></h2>
-<p><%= @certificate.description %></p>
-<p><%= @certificate.exam_fee %> Php</p>
-<p><%= @certificate.isReimbursable == true ? "Reimbursable" : "Not Reimbursable" %></p>
-<hr>
 
-<%= link_to "Edit", edit_certificate_path(@certificate), :class => 'btn btn-info' %>
-<%= link_to "Delete", certificate_path(@certificate), 
-                method: :delete,
-                data: { confirm: 'Are you sure?' },
-                :class => 'btn btn-danger' %>
+<div class="row">
+    <h2><%= @certificate.name %></h2>
+    <p><strong>Description: </strong><%= @certificate.description %></p>
+    <p><strong>Pricing: </strong><%= @certificate.exam_fee %> Php</p>
+    <p><strong>Reimbursable: </strong><%= @certificate.isReimbursable == true ? "Yes" : "No" %></p>
+    <br />
+
+    <%= link_to "Edit", edit_certificate_path(@certificate), :class => 'btn btn-sm btn-info' %> | 
+    <%= link_to "Delete", certificate_path(@certificate), 
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    :class => 'btn btn-sm btn-danger' %>
+</div>
+
+<hr />
+
+<div class="row">
+
+  <div class="col-sm-7">
+    <%= render "trainings/list_trainings" %>
+  </div>
+  <div class="col-sm-5">
+    <h3><%= @status == 'add' ? "Add" : "Edit" %> a Training</h3>
+    <%= render "trainings/#{@status}_trainings" %>
+  </div>
+    
+</div>

@@ -1,0 +1,30 @@
+
+<h3>Training List</h3>
+<% @certificate.trainings.each do |training| %>
+    <% if training.name != nil %>
+        <div class="well">
+            <h4>
+            <strong><%= training.name %></strong>
+            </h4>
+
+            <p>
+            Description: 
+            <%= training.description %>
+            </p>
+
+            <p>
+            Source: 
+            <%= training.source %>
+            </p>
+
+            <p>
+            <%= link_to 'Edit', edit_certificate_training_path([@certificate, @training]), {:class => 'btn btn-sm btn-primary'}  %> |
+            <%= link_to 'Delete', [training.certificate, training],
+                        method: :delete,
+                        data: {confirm: 'Are you sure?'},
+                        :class => 'btn btn-sm btn-danger' %> 
+            </p>
+        </div>
+    <% end %>
+<% end %>
+

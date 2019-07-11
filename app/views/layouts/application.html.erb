@@ -13,6 +13,11 @@
   <%= render 'layouts/navbar' %>
 
   <body>
-    <%= yield %>
+
+    <%= render "layouts/notifs" %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :certificates do
+    resources :trainings
+  end
 end

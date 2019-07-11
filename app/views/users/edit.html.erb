@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <h3>Edit User</h3>
+
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= form_for @user do |f| %>
+        <%= render "devise/shared/error_messages", resource: @user %>
+        
+        <div class="form-group">
+          <%= f.label :first_name do %>
+            First name<span class="required">*</span>
+          <% end %>
+          <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :middle_name do %>
+            Middle name<span class="required">*</span>
+          <% end %>
+          <%= f.text_field :middle_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :last_name do %>
+            Last name<span class="required">*</span>
+          <% end %>
+          <%= f.text_field :last_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email do %>
+            Email<span class="required">*</span>
+          <% end %>
+          <%= f.email_field :email, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.check_box :isAdmin %>
+          <%= f.label :isAdmin, 'Set as Admin' %>
+        </div>
+
+        <div class="form-group text-center">
+          <%= f.submit "Submit", :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+
+
+

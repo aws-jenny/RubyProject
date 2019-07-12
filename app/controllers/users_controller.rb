@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
   	if @user.update(update_user_params)
-  		flash[:success] = "User updated"
+  		flash[:success] = "User updated."
     	redirect_to users_path
   	else
     	render 'edit'
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def destroy
   	@user = User.find(params[:id])
 		@user.destroy
-		flash[:success] = "User deleted"
+		flash[:success] = "User deleted."
 		redirect_to users_path
   end
 
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
 
   def redirect_unless_admin
     unless current_user.try(:isAdmin?)
-      flash[:error] = "Only admins can do that"
-      redirect_back fallback_location: root_path
+      flash[:alert] = "Only admins can do that."
+      redirect_back fallback_location: authenticated_root_path
     end
   end
 

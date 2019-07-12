@@ -12,8 +12,8 @@ class RegistrationsController < Devise::RegistrationsController
   private
   def redirect_unless_admin
     unless current_user.try(:isAdmin?)
-      flash[:error] = "Only admins can do that"
-      redirect_to root_path
+      flash[:alert] = "Only admins can do that."
+      redirect_to authenticated_root_path
     end
   end
 
@@ -30,11 +30,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:user).permit( :name, 
-                                  :email, 
-                                  :password, 
-                                  :password_confirmation, 
-                                  :current_password)
+    params.require(:user).permit( :email, :password, :password_confirmation, :current_password)
   end
 
   

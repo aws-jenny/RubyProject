@@ -10,12 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
-  def redirect_unless_admin
-    unless current_user.try(:isAdmin?)
-      flash[:alert] = "Only admins can do that."
-      redirect_to authenticated_root_path
-    end
-  end
 
   def sign_up(resource_name, resource)
     true

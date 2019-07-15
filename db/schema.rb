@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20190712031454) do
 
-  create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "certificate_id"
     t.integer "associate_id"
     t.datetime "created_at", null: false

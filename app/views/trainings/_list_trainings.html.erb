@@ -18,11 +18,13 @@
             </p>
 
             <p>
-            <%= link_to 'Edit', edit_certificate_training_path(@certificate, training), {:class => 'btn btn-sm btn-primary'}  %> |
-            <%= link_to 'Delete', [training.certificate, training],
+                <% if current_user.isAdmin? %>
+                    <%= link_to 'Edit', edit_certificate_training_path(@certificate, training), {:class => 'btn btn-sm btn-primary'}  %> |
+                    <%= link_to 'Delete', [training.certificate, training],
                         method: :delete,
                         data: {confirm: 'Are you sure?'},
-                        :class => 'btn btn-sm btn-danger' %> 
+                        :class => 'btn btn-sm btn-danger' %>
+                <% end %> 
             </p>
         </div>
     <% end %>

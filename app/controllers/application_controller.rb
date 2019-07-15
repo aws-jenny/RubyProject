@@ -5,4 +5,12 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
   	new_user_session_path
 	end
+
+	def redirect_unless_admin
+    unless current_user.try(:isAdmin?)
+      flash[:alert] = "Only admins can do that."
+      redirect_back fallback_location: authenticated_root_path
+    end
+  end
+  
 end

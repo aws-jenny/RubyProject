@@ -33,12 +33,4 @@ class UsersController < ApplicationController
   	params.require(:user).permit( :first_name, :middle_name, :last_name, :email, :isAdmin)
   end
 
-  def redirect_unless_admin
-    unless current_user.try(:isAdmin?)
-      flash[:alert] = "Only admins can do that."
-      redirect_back fallback_location: authenticated_root_path
-    end
-  end
-
-
 end

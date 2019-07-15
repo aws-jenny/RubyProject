@@ -1,4 +1,7 @@
 class CertificatesController < ApplicationController
+
+  before_action :redirect_unless_admin, except: [:index, :show]
+
   def index
     @certificates = Certificate.all
   end

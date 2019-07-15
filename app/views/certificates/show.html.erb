@@ -6,35 +6,41 @@
     <p><strong>Reimbursable: </strong><%= @certificate.isReimbursable == true ? "Yes" : "No" %></p>
     <br />
 
-    <%= link_to "Edit", edit_certificate_path(@certificate), :class => 'btn btn-sm btn-info' %> | 
-    <%= link_to "Delete", certificate_path(@certificate), 
+    <%= link_to "Add to my wishlist", certificates_path, :class => 'btn btn-sm btn-primary' %>
+    <% if current_user.isAdmin? %>
+      <%= link_to "Edit", edit_certificate_path(@certificate), :class => 'btn btn-sm btn-info' %>
+      <%= link_to "Delete", certificate_path(@certificate), 
                     method: :delete,
                     data: { confirm: 'Are you sure?' },
                     :class => 'btn btn-sm btn-danger' %>
+    <% end %>
 </div>
 
 <hr />
 
 <div class="row">
-  <div class="col-sm-7">
+  <div class="<%= current_user.isAdmin ? 'col-sm-7' : 'col-sm-12' %>">
     <%= render "certificates/requisite" %>
   </div>
-  <div class="col-sm-5">
-    <%= render "certificates/list" %>
-  </div>
 
+  <% if current_user.isAdmin? %>
+    <div class="col-sm-5">
+      <%= render "certificates/list" %>
+    </div>
+  <% end %> 
 </div>
 
 <hr />
 
 <div class="row">
-
-  <div class="col-sm-7">
+  <div class="<%= current_user.isAdmin ? 'col-sm-7' : 'col-sm-12' %>">
     <%= render "trainings/list_trainings" %>
   </div>
-  <div class="col-sm-5">
-    <h3><%= @status == 'add' ? "Add" : "Edit" %> a Training</h3>
-    <%= render "trainings/#{@status}_trainings" %>
-  </div>
-    
+
+  <% if current_user.isAdmin? %>
+    <div class="col-sm-5">
+      <h3><%= @status == 'add' ? "Add" : "Edit" %> Training</h3>
+      <%= render "trainings/#{@status}_trainings" %>
+    </div>
+  <% end %> 
 </div>

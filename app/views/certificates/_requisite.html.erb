@@ -1,0 +1,10 @@
+<h3>Requisite Certificates</h3>
+    
+<% for data in @certificate.associations %>
+    <div class="well">
+        <%= link_to '<i class="glyphicon glyphicon-minus-sign"></i>'.html_safe, data, :method => :delete %>
+        &nbsp;&nbsp; 
+        <strong><%= link_to data.associate.name, certificate_path(data.associate) %></strong>
+    </div>
+<% end %>
+    

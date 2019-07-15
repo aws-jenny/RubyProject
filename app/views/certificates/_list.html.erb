@@ -1,0 +1,23 @@
+<h3>Add a Requisite Certificate</h3>
+<div style="overflow-y:auto; height:180px">
+
+
+<table class="table table-striped">
+
+  <tbody>
+
+  <% @available_certs.each do |certificate| %>
+
+  <tr>
+
+        <td>
+          <%= link_to '<i class="glyphicon glyphicon-plus-sign"></i>'.html_safe, associations_path(certificate.id.to_s<<"_"<<@certificate.id.to_s), :method => :post %>
+          &nbsp;
+          <strong><%= certificate.name %></strong>
+        </td>
+  </tr>
+
+  <% end %>
+  </tbody>
+</table>
+</div>

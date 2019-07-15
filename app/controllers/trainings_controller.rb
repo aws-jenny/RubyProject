@@ -14,8 +14,14 @@ class TrainingsController < ApplicationController
         @training = Training.find(params[:id])
 
         @certificate = Certificate.find(@training.certificate_id)
+        @certificates = Certificate.where.not(id: @certificate)
         @status = "edit"
-        puts @status
+
+        array_associate = []
+        @certificate.associations.each_with_index do |associations, index|
+            array_associate[index] = associations.associate
+        end
+        @available_certs = @certificates - array_associate
 
         # redirect_to certificate_path(@certificate)
         render 'certificates/show'

@@ -3,12 +3,6 @@ class AssociationsController < ApplicationController
     assoc_params = params[:format].split('_')
     @certificate = Certificate.find(assoc_params[1])
 
-    puts "jano"
-    puts assoc_params[0]
-    puts assoc_params[1]
-    puts "lannah"
-    # puts @certificate.name
-
     @association = @certificate.associations.build(:associate_id => assoc_params[0])
     if @association.save
       flash[:success] = "Association successfully created"

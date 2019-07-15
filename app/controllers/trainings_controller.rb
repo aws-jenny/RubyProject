@@ -1,4 +1,7 @@
 class TrainingsController < ApplicationController
+
+    before_action :redirect_unless_admin, except: [:show]
+
     def show
         @training = Training.find(params[:id])
     end

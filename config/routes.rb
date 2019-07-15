@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
 	root "pages#index"
 
   devise_for :users, :path_prefix => 'dev', :controllers => {:registrations => 'registrations'}
@@ -13,4 +12,5 @@ Rails.application.routes.draw do
   resources :certificates do
     resources :trainings
   end
+  resources :associations, :only => [:create, :destroy]
 end

@@ -1,4 +1,7 @@
 class AssociationsController < ApplicationController
+
+  before_action :redirect_unless_admin
+
   def create
     assoc_params = params[:format].split('_')
     @certificate = Certificate.find(assoc_params[1])

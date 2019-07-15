@@ -2,7 +2,7 @@
     
 <% for data in @certificate.associations %>
     <div class="well">
-        <%= link_to '<i class="glyphicon glyphicon-minus-sign"></i>'.html_safe, data, :method => :delete %>
+        <%= link_to '<i class="glyphicon glyphicon-minus-sign"></i>'.html_safe, data, :method => :delete  if current_user.isAdmin? %>
         &nbsp;&nbsp; 
         <strong><%= link_to data.associate.name, certificate_path(data.associate) %></strong>
     </div>

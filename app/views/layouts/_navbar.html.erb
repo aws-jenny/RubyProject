@@ -10,7 +10,11 @@
           <span class="icon-bar"></span>
         </button>
 
-        <%= link_to 'RubyProject', root_path, :class => 'navbar-brand' %>
+        <%#= link_to 'RubyProject', authenticated_root_path, :class => 'navbar-brand' %>
+
+        <%= link_to_if(user_signed_in?, "Ruby Project", authenticated_root_path, {:class => 'navbar-brand'} ) { 
+              link_to( "RubyProject", unauthenticated_root_path, :class => 'navbar-brand') 
+        } %>
       </div>
  
       <div class="collapse navbar-collapse" id="navbar-collapsible-content">
@@ -23,7 +27,7 @@
             <% end %>
         
             <li class="nav-item">
-              <%= link_to 'Certifications', login_path, :class => 'nav-item' %>
+              <%= link_to 'Certifications', certificates_path, :class => 'nav-item' %>
             </li>
           </ul>
         

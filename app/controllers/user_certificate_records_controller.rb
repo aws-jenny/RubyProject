@@ -16,17 +16,30 @@ class UserCertificateRecordsController < ApplicationController
       flash[:notice] = "Certification added to your wishlist."
       redirect_to certificate_path(certificate_id)
     else
-      render plain: 'Error'
+      flash[:alert] = "Something went wrong.Please try again."
+      redirect_to certificate_path(certificate_id)
     end
   end
 
   def update
     @record = UserCertificateRecord.find(params[:id])
+    current_page = Rails.application.routes.recognize_path(request.referrer)
+
     if @record.update(status: params[:status])
-      flash[:notice] = "Certification status set to taken."
-      redirect_to certificate_path(@record.certificate_id)
+      flash[:notice] = "Certification status updated."
+      
+      if current_page[:controller] == "users"
+        redirect_to user_path(@record.user_id)
+      elsif current_page[:controller] == "certificates"
+        redirect_to certificate_path(@record.certificate_id)
+      end
     else
-      render plain: 'Error'
+      flash[:alert] = "Something went wrong.Please try again."
+      if current_page[:controller] == "users"
+        redirect_to user_path(@record.user_id)
+      elsif current_page[:controller] == "certificates"
+        redirect_to certificate_path(@record.certificate_id)
+      end
     end
   end
 
@@ -35,9 +48,10 @@ class UserCertificateRecordsController < ApplicationController
     
     if @record.destroy
       flash[:success] = "Certification removed from your wishlist."
-      redirect_to certificates_path
+      redirect_to certificate_path(@record.certificate_id)
     else
-      render plain: 'Error'
+      flash[:alert] = "Something went wrong.Please try again."
+      redirect_to certificate_path(@record.certificate_id)
     end
   end
 

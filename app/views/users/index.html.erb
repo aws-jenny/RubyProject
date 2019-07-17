@@ -3,7 +3,7 @@
 
 		<div class="col-sm-12">
 			<h3>Users</h3>
-			<%= link_to 'Add User', new_user_registration_path, :class => 'btn btn-primary' %>
+			<%= link_to 'Add User', new_user_registration_path, :class => 'btn btn-success' %>
 		</div>
 
 		<div class="col-sm-12">
@@ -21,7 +21,8 @@
 						<tr>
 							<td><%= user.first_name + " " + user.last_name %></td>
 							<td><%= "Admin" if user.isAdmin? %></td>
-							<td><%= link_to 'Edit', edit_user_path(user), :class => 'btn btn-primary' %>
+							<td><%= link_to 'View', user_path(user), :class => 'btn btn-default' %>
+								<%= link_to 'Edit', edit_user_path(user), :class => 'btn btn-primary' %>
 								<%= link_to 'Delete', user_path(user), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %></td>
 							</tr>
 					<% end %>

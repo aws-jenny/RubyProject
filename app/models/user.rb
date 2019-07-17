@@ -5,4 +5,6 @@ class User < ApplicationRecord
   			:rememberable, :validatable, :timeoutable
 
   validates :first_name, :middle_name, :last_name, presence: true
+
+  has_many :user_training_records
 end

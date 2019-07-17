@@ -11,7 +11,7 @@
   <tr>
 
         <td>
-          <%= link_to '<i class="glyphicon glyphicon-plus-sign"></i>'.html_safe, associations_path(certificate.id.to_s<<"_"<<@certificate.id.to_s), :method => :post %>
+          <%= link_to '<i class="glyphicon glyphicon-plus-sign"></i>'.html_safe, associations_path(certificate.id.to_s<<"_"<<@certificate.id.to_s), :method => :post, :class => 'btn btn-xs btn-default' %>
           &nbsp;
           <strong><%= certificate.name %></strong>
         </td>

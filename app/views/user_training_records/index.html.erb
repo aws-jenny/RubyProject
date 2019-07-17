@@ -1,0 +1,38 @@
+<h1>UserTrainingRecords#index</h1>
+
+<hr />
+
+<% @trainings.each do |training| %>
+
+    <div class="well col-sm-4">
+        <h3><%= training.name %></h3>
+        <p><%= training.description[0..30].gsub(/\s\w+\s*$/,'...') %></p>
+
+        <% @tess = true  %>
+
+        <% current_user.user_training_records.each do |training_record| %>
+            <% if training.id == training_record.training_id %>
+                <% if training_record.isDone == false %>
+                  <%= link_to "Done", user_training_record_path(training_record), method: :put, :class => 'btn btn-success' %> |
+                  <%= link_to "Cancel", user_training_record_path(training_record), 
+                                        method: :delete,
+                                        data: { confirm: 'Are you sure you want to cancel?' },
+                                        :class => 'btn btn-sm btn-danger' %>
+                <% else %>
+                  Completed | 
+                  <%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, user_training_record_path(training_record), 
+                                        method: :delete,
+                                        data: { confirm: 'Are you sure you want to remove this?' },
+                                        :class => 'btn btn-sm btn-danger' %>
+                <% end %>
+                <% @tess = false %>
+            <% end %>
+        <% end %>
+
+        <% if @tess == true %>
+            <%= link_to "Start", user_training_records_path(:training_id => training), method: :post, :class => 'btn btn-secondary' %>
+        <% end %>
+
+    </div>
+
+<% end %>

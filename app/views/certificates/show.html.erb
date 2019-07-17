@@ -1,12 +1,18 @@
 
 <div class="row">
-    <h2><%= @certificate.name %></h2>
+    <h2><%= @certificate.name %><span class="badge badge-secondary"><%= @record.status unless @record.blank? %></span></h2>
     <p><strong>Description: </strong><%= @certificate.description %></p>
     <p><strong>Pricing: </strong><%= @certificate.exam_fee %> Php</p>
     <p><strong>Reimbursable: </strong><%= @certificate.isReimbursable == true ? "Yes" : "No" %></p>
     <br />
 
-    <%= link_to "Add to my wishlist", certificates_path, :class => 'btn btn-sm btn-primary' %>
+    <% if current_user.certificates.exists?(@certificate.id) %>
+      <%= link_to 'Taken', user_certificate_record_path(@record, :status => "Taken"), method: :put, :class => 'btn btn-sm btn-primary' if @record.status == 'Ongoing' %>
+      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, :class => 'btn btn-sm btn-danger' %>
+    <% else %>
+      <%= link_to "Add to my wishlist", user_certificate_records_path(@certificate.id), method: :post, :class => 'btn btn-sm btn-primary' %>
+    <% end %>
+
     <% if current_user.isAdmin? %>
       <%= link_to "Edit", edit_certificate_path(@certificate), :class => 'btn btn-sm btn-info' %>
       <%= link_to "Delete", certificate_path(@certificate), 

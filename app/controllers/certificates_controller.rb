@@ -18,6 +18,8 @@ class CertificatesController < ApplicationController
     end
     @available_certs = @certificates - array_associate
 
+    @record = @certificate.user_certificate_records.find_by user_id: current_user.id
+
   end
 
   def new

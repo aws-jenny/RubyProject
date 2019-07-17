@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20190716005332) do
     t.index ["certificate_id"], name: "index_trainings_on_certificate_id"
   end
 
+  create_table "user_certificate_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.bigint "user_id"
+    t.bigint "certificate_id"
+    t.string "status", default: "Ongoing", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_id"], name: "index_user_certificate_records_on_certificate_id"
+    t.index ["user_id"], name: "index_user_certificate_records_on_user_id"
+  end
+
   create_table "user_training_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.boolean "isDone"
     t.bigint "user_id"
@@ -65,6 +75,8 @@ ActiveRecord::Schema.define(version: 20190716005332) do
   end
 
   add_foreign_key "trainings", "certificates"
+  add_foreign_key "user_certificate_records", "certificates"
+  add_foreign_key "user_certificate_records", "users"
   add_foreign_key "user_training_records", "trainings"
   add_foreign_key "user_training_records", "users"
 end

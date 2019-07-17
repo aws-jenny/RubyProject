@@ -1,7 +1,7 @@
 <h3>Requisite Certificates</h3>
     
 <% for data in @certificate.associations %>
-    <div class="well">
+    <div class="well well-sm">
         <%= link_to '<i class="glyphicon glyphicon-minus-sign"></i>'.html_safe, data, :method => :delete, :class => 'btn btn-xs btn-default'  if current_user.isAdmin? %>
         &nbsp;&nbsp; 
         <strong><%= link_to data.associate.name, certificate_path(data.associate) %></strong>

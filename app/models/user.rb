@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :first_name, :middle_name, :last_name, presence: true
 
   has_many :user_training_records
+  has_many :user_certificate_records
+  has_many :certificates, through: :user_certificate_records
 end

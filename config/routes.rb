@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   end
 
   resources :associations, :only => [:create, :destroy]
-
+  resources :user_training_records, :only => [:create, :update, :destroy]
   resources :user_certificate_records, only: [:create, :update, :destroy]
-  
 end

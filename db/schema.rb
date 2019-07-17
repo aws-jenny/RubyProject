@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190715071657) do
+ActiveRecord::Schema.define(version: 20190716005332) do
 
-  create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "certificate_id"
     t.integer "associate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "certificates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "certificates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
     t.text "description"
     t.decimal "exam_fee", precision: 10
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20190715071657) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
     t.text "description"
     t.text "source"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20190715071657) do
     t.index ["certificate_id"], name: "index_trainings_on_certificate_id"
   end
 
-  create_table "user_certificate_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_certificate_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "user_id"
     t.bigint "certificate_id"
     t.string "status", default: "Ongoing", null: false
@@ -48,7 +48,17 @@ ActiveRecord::Schema.define(version: 20190715071657) do
     t.index ["user_id"], name: "index_user_certificate_records_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_training_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.boolean "isDone"
+    t.bigint "user_id"
+    t.bigint "training_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_user_training_records_on_training_id"
+    t.index ["user_id"], name: "index_user_training_records_on_user_id"
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "first_name", default: "", null: false
     t.string "middle_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -67,4 +77,6 @@ ActiveRecord::Schema.define(version: 20190715071657) do
   add_foreign_key "trainings", "certificates"
   add_foreign_key "user_certificate_records", "certificates"
   add_foreign_key "user_certificate_records", "users"
+  add_foreign_key "user_training_records", "trainings"
+  add_foreign_key "user_training_records", "users"
 end

@@ -1,6 +1,11 @@
 
 <div class="row">
-    <h2><%= @certificate.name %><span class="badge badge-secondary"><%= @record.status unless @record.blank? %></span></h2>
+    <h2>
+      <%= @certificate.name %>
+      <small><span class="label label-default"><%= @record.status if @record.status == "Ongoing" %></span></small>
+      <small><span class="label label-warning"><%= @record.status if @record.status == "Taken" %></span></small>
+      <small><span class="label label-success"><%= @record.status if @record.status == "Passed" %></span></small>
+    </h2>
     <p><strong>Description: </strong><%= @certificate.description %></p>
     <p><strong>Pricing: </strong><%= @certificate.exam_fee %> Php</p>
     <p><strong>Reimbursable: </strong><%= @certificate.isReimbursable == true ? "Yes" : "No" %></p>

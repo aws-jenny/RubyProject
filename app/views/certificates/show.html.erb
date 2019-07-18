@@ -7,8 +7,8 @@
     <br />
 
     <% if current_user.certificates.exists?(@certificate.id) %>
-      <%= link_to 'Taken', user_certificate_record_path(@record, :status => "Taken"), method: :put, :class => 'btn btn-sm btn-primary' if @record.status == 'Ongoing' %>
-      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, :class => 'btn btn-sm btn-danger' %>
+      <%= link_to 'Set to Taken', user_certificate_record_path(@record, :status => "Taken"), method: :put, :class => 'btn btn-sm btn-primary' if @record.status == 'Ongoing' %>
+      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, data: {confirm: "Are you sure to remove certificate from your list?"}, :class => 'btn btn-sm btn-danger' unless @record.status == 'Passed' %>
     <% else %>
       <%= link_to "Add to my wishlist", user_certificate_records_path(@certificate.id), method: :post, :class => 'btn btn-sm btn-primary' %>
     <% end %>

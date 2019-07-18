@@ -2,9 +2,11 @@
 <div class="row">
     <h2>
       <%= @certificate.name %>
-      <small><span class="label label-default"><%= @record.status if @record.status == "Ongoing" %></span></small>
-      <small><span class="label label-warning"><%= @record.status if @record.status == "Taken" %></span></small>
-      <small><span class="label label-success"><%= @record.status if @record.status == "Passed" %></span></small>
+      <% unless @record.blank? %>
+        <small><span class="label label-default"><%= @record.status if @record.status == "Ongoing" %></span></small>
+        <small><span class="label label-warning"><%= @record.status if @record.status == "Taken" %></span></small>
+        <small><span class="label label-success"><%= @record.status if @record.status == "Passed" %></span></small>
+      <% end %>
     </h2>
     <p><strong>Description: </strong><%= @certificate.description %></p>
     <p><strong>Pricing: </strong><%= @certificate.exam_fee %> Php</p>

@@ -18,6 +18,11 @@
     </p>
 
     <p>
+        <%=f.label :importance %><br>
+        <%= f.select :importance, [['Ongoing','ongoing'],['Done','done']], {:class => 'form-control'} %>
+    </p>
+
+    <p>
         <%=f.submit({:class => 'btn btn-primary'}) %>
     </p>
 

@@ -14,7 +14,7 @@
 
             <p>
             Source: 
-            <%= training.source %>
+            <%= training.source.gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %>
             </p>
 
             <p>

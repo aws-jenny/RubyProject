@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+defaultAdmin = User.create(
+    :first_name => "Admin",
+    :email => "sample@awsys-i.com",
+    :password => "awsol123"
+)
+
+defaultAdmin.toggle!(:isAdmin)

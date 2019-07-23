@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  examinee_code: MyString
+  exam_date: 2019-07-23
+  user_certificate_record: one
+
+two:
+  examinee_code: MyString
+  exam_date: 2019-07-23
+  user_certificate_record: two

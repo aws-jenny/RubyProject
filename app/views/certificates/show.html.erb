@@ -1,11 +1,14 @@
 
 <div class="row">
+
+  <div class="col-sm-7">
     <h2>
       <%= @certificate.name %>
       <% unless @record.blank? %>
         <small>
         <span class="label label-default"><%= @record.status if @record.status == "Ongoing" %></span>
         <span class="label label-warning"><%= @record.status if @record.status == "Taken" %></span>
+        <span class="label label-warning"><%= "For Retake" if @record.status == "Failed" %></span>
         <span class="label label-success"><%= @record.status if @record.status == "Passed" %></span>
         </small>
       <% end %>
@@ -16,8 +19,7 @@
     <br />
 
     <% if current_user.certificates.exists?(@certificate.id) %>
-      <%= link_to 'Set to Taken', user_certificate_record_path(@record, :status => "Taken"), method: :put, :class => 'btn btn-sm btn-primary' if @record.status == 'Ongoing' %>
-      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, data: {confirm: "Are you sure to remove certificate from your list?"}, :class => 'btn btn-sm btn-danger' unless @record.status == 'Passed' %>
+      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, data: {confirm: "Are you sure to remove certificate from your list?"}, :class => 'btn btn-sm btn-danger' if @record.status == 'Ongoing' %>
     <% else %>
       <%= link_to "Add to my wishlist", user_certificate_records_path(@certificate.id), method: :post, :class => 'btn btn-sm btn-primary' %>
     <% end %>
@@ -29,6 +31,15 @@
                     data: { confirm: 'Are you sure?' },
                     :class => 'btn btn-sm btn-danger' %>
     <% end %>
+  </div>
+  <div class="col-sm-5">
+    <% unless @record.blank? %>
+      <% if @record.status == "Ongoing" || @record.status == "Failed" %>
+        <h3>Take Exam</h3>
+        <%= render "exam_histories/add_exam_history" %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <hr />

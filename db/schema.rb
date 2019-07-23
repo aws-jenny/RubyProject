@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20190716005332) do
     t.string "name"
     t.text "description"
     t.text "source"
+    t.text "importance"
     t.bigint "certificate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

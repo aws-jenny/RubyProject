@@ -4,6 +4,7 @@ class CreateTrainings < ActiveRecord::Migration[5.1]
       t.string :name
       t.text :description
       t.text :source
+      t.text :importance
       t.references :certificate, foreign_key: true
 
       t.timestamps

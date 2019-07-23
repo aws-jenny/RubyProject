@@ -70,7 +70,7 @@ class TrainingsController < ApplicationController
     private
     
     def trainings_params
-        params.require(:training).permit(:name, :description, :source, :certificate_id)
+        params.require(:training).permit(:name, :description, :source, :importance, :certificate_id)
     end
       
 end

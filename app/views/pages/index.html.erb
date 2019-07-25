@@ -1,7 +1,79 @@
-<div class="container">
-	<div class="row">
-		<h3>Home page</h3>
-		<h3><%= current_user.first_name  %></h3>
+<div class="row">
+
+    <div class="col-md-4">
+    	<div class="panel">
+    		<div class="panel-heading clearfix">
+				<h4 class="panel-title pull-left">My Certificates</h4>
+			</div>
+
+			<div class="panel-body">
+				
+				<div class="panel panel-default">
+					<div class="panel-heading clearfix">Ongoing</div>
+					<div class="panel-body">
+						<% if @ongoing.size == 0 %>
+  							<center>No data to display.</center>
+ 						<% else %>
+  							<% @ongoing.each do |record|%>
+        						<li><%= record.certificate.name %></li>
+ 							<% end %>
+						<% end %>
+					</div>		
+				</div>
+							
+				<div class="panel panel-warning">
+					<div class="panel-heading">Taken</div>
+					<div class="panel-body">
+						<% if @taken.size == 0 %>
+  							<center>No data to display.</center>
+ 						<% else %>
+  							<% @taken.each do |record|%>
+        						<li><%= record.certificate.name %></li>
+ 							<% end %>
+						<% end %>
+					</div>
+				</div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading">Passed</div>
+					<div class="panel-body">
+						<% if @passed.size == 0 %>
+  							<center>No data to display.</center>
+ 						<% else %>
+  							<% @passed.each do |record|%>
+        						<li><%= record.certificate.name %></li>
+ 							<% end %>
+						<% end %>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
 	</div>
 
+	<div class="col-md-8" style="margin-top: 15px">
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">Passers per Certification</div>
+			<div class="panel-body">
+		<%= bar_chart @passed_certs.joins(:certificate).group(:name).count, ytitle: "No. of Certified Users", messages: {empty: "No data"} %>
+	</div>
+	</div> 
+
 </div>
+
+
+
+ <%#= form_tag dashboard_path, method: "get", id: "filter" do %>
+  	<%#= select_tag :status, options_for_select([['All'], ['Ongoing'], ['Taken'], ['Passed']], :selected => params[:status]), :class => 'form-control', :onchange => 'this.form.submit();' %>
+ <%# end %>
+
+ <%# if @user_certificates.size == 0 %>
+  	<!-- <center>No data to display.</center> -->
+ <%# else %>
+  	<%# @user_certificates.each do |record|%>
+        <%#= record.certificate.name %>
+ 	<%# end %>
+<%# end %>
+ 
+

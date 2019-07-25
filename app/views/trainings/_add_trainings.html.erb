@@ -18,6 +18,11 @@
     </p>
 
     <p>
+        <%=f.label :importance %><br>
+        <%= f.select :importance, [['Low','low'],['Medium','medium'],['High','high']], {:class => 'form-control'} %>
+    </p>
+
+    <p>
         <%=f.submit({:class => 'btn btn-primary'}) %>
     </p>
 

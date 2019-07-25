@@ -5,16 +5,22 @@
         <div class="well">
             <h4>
             <strong><%= training.name %></strong>
+            <% unless training.importance.blank? %>
+                <span class="label label-default pull-right"><%= training.importance if training.importance == "low" %></span>
+                <span class="label label-warning pull-right"><%= training.importance if training.importance == "medium" %></span>
+                <span class="label label-danger pull-right"><%= training.importance if training.importance == "high" %></span>
+            <% end %>
             </h4>
 
             <p>
             Description: 
             <%= training.description %>
+            <%= training.importance %>
             </p>
 
             <p>
             Source: 
-            <%= training.source %>
+            <%= training.source.gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %>
             </p>
 
             <p>

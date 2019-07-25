@@ -1,0 +1,22 @@
+
+<div class="row">
+    <%= form_for([@record, @record.exam_histories.build], :html => {:class => 'form-horizontal center'}) do |f| %>
+    
+    <p>
+        <%=f.label :examinee_code %><br>
+        <%=f.text_field(:examinee_code, {:class => 'form-control'})  %>
+    </p>
+
+    <p>
+        <%=f.label :exam_date %><br>
+        <%= f.date_field :exam_date, {:class => 'form-control'} %>
+    </p>
+
+    <p>
+        <%=f.submit "Set to Taken" ,{:class => 'btn btn-sm btn-primary'} %>
+    </p>
+
+    <% end %>
+
+</div>
+

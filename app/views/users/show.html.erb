@@ -9,11 +9,28 @@
         <div class="well well-sm col-sm-offset-2 col-sm-8">
           <h3>
             <%= record.certificate.name %>
-            <small><span class="label label-default"><%= record.status if record.status == "Ongoing" %></span></small>
-            <small><span class="label label-warning"><%= record.status if record.status == "Taken" %></span></small>
-            <small><span class="label label-success"><%= record.status if record.status == "Passed" %></span></small>
+            <small>
+            <span class="label label-default pull-right"><%= record.status if record.status == "Ongoing" %></span>
+            <span class="label label-warning pull-right"><%= record.status if record.status == "Taken" %></span>
+            <span class="label label-success pull-right"><%= record.status if record.status == "Passed" %></span>
+            <span class="label label-warning pull-right"><%= "For Retake" if record.status == "Failed" %></span>
+            </small>
           </h3>
-          <%= link_to 'Set to Passed', user_certificate_record_path(record, :status => "Passed"), method: :put, :class => 'btn btn-xs btn-primary' if record.status == 'Taken' %>
+          <div class="col-sm-12">
+            <% record.exam_histories.each_with_index do |exam, index| %>
+              <% if exam.equal?(record.exam_histories.last) %>
+                <% if record.status == 'Taken' %>
+                  Exam Code: <strong><%= exam.examinee_code %> </strong> | Exam Date: <strong> <%= exam.exam_date %> </strong> <br />
+                  <%= link_to 'Set to Passed', user_certificate_record_path(record, :status => "Passed"), method: :put, :class => 'btn btn-xs btn-primary' %> |
+                  <%= link_to 'Set to Failed', user_certificate_record_path(record, :status => "Failed"), method: :put, :class => 'btn btn-xs btn-danger' %>
+                <% end %>
+                <% if record.status == 'Failed' %>
+                  <p class="pull-right">Last exam: <strong><%= exam.exam_date %></strong></p>
+                <% end %>
+                <p class="pull-right">No. of times taken: <strong><%= index+1 %></strong></p>
+              <% end %>
+            <% end %>
+          </div>
           <ul>
           <% @user.user_training_records.each do |training_record| %>
               <% if training_record.training.certificate_id  == record.certificate_id && training_record.isDone? %>

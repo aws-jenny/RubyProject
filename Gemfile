@@ -53,3 +53,6 @@ gem 'devise'
 
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'jquery-rails'
+
+gem 'chartkick'
+gem 'highcharts-rails'

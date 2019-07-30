@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   resources :user_certificate_records, only: [:create, :update, :destroy] do
     resources :exam_histories, :only => [:create]
   end
+  resources :recommendations, :only => [:create, :destroy]
 end

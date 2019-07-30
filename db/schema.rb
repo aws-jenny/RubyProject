@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190723025025) do
+ActiveRecord::Schema.define(version: 20190729072344) do
 
   create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "certificate_id"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20190723025025) do
     t.index ["user_certificate_record_id"], name: "index_exam_histories_on_user_certificate_record_id"
   end
 
+  create_table "recommendations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "certificate_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_id"], name: "index_recommendations_on_certificate_id"
+    t.index ["user_id"], name: "index_recommendations_on_user_id"
+  end
+
   create_table "trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
@@ -51,7 +60,7 @@ ActiveRecord::Schema.define(version: 20190723025025) do
   create_table "user_certificate_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "certificate_id"
-    t.string "status", default: "Ongoing", null: false
+    t.string "status", default: "Wished", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["certificate_id"], name: "index_user_certificate_records_on_certificate_id"
@@ -85,6 +94,8 @@ ActiveRecord::Schema.define(version: 20190723025025) do
   end
 
   add_foreign_key "exam_histories", "user_certificate_records"
+  add_foreign_key "recommendations", "certificates"
+  add_foreign_key "recommendations", "users"
   add_foreign_key "trainings", "certificates"
   add_foreign_key "user_certificate_records", "certificates"
   add_foreign_key "user_certificate_records", "users"

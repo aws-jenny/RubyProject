@@ -9,4 +9,5 @@ class User < ApplicationRecord
   has_many :user_training_records
   has_many :user_certificate_records
   has_many :certificates, through: :user_certificate_records
+  has_many :recommendations
 end

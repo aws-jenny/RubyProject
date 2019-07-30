@@ -7,8 +7,15 @@ class UsersController < ApplicationController
 	end
 
   def show
-    @user = User.find(params[:id])
-    
+	@user = User.find(params[:id])
+
+	passed_certs = UserCertificateRecord.where(user_id: params[:id])
+	@certificates = Certificate.all
+	p_certs = []
+	passed_certs.each_with_index do |cert, index|
+		p_certs[index] = cert.certificate
+	end
+	@certificates = @certificates - p_certs
   end
 
 	def edit

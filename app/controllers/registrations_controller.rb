@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     password = "awsol123"
-    params.require(:user).permit( :first_name, :middle_name, :last_name, :email, :isAdmin).merge(:password => password)
+    params.require(:user).permit( :first_name, :middle_name, :last_name, :email, :business_unit_id, :isAdmin).merge(:password => password)
   end
 
   def account_update_params

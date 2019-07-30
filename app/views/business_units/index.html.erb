@@ -1,0 +1,46 @@
+<div class="row">
+
+	<div class="col-sm-12">
+		<div class="col-sm-7">
+			<h3>Business Units</h3>
+		</div>
+
+		<div class="col-sm-5" style="margin-top: 15px;">
+			<%= form_for (@edit_business_unit.blank? ? @new_business_unit : @edit_business_unit) do |f| %>
+			<div class="col-sm-8">
+				<%= f.text_field :name, placeholder: 'BU name', :class => 'form-control' %>
+			</div>
+			
+			<div class="col-sm-4">
+				<%= f.submit (@edit_business_unit.blank? ? 'Add' : 'Update'), :class => 'btn btn-primary' %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="col-sm-12">
+		<div class="col-sm-offset-2 col-sm-8">
+			<table class="table table-striped text-center">
+				<thead>
+    				<tr>
+      					<th class="text-center">Name</th>
+      					<th class="text-center">Current Members</th>
+      					<th></th>
+    				</tr>
+  				</thead>
+  				<tbody>
+    				<% @bus_units.each do |bu| %>
+						<tr>
+							<td><%= bu.name %></td>
+							<td><%= bu.users.size %></td>
+							<td><%= link_to 'Edit', edit_business_unit_path(bu), :class => 'btn btn-primary' %>
+								<%= link_to 'Delete', business_unit_path(bu), method: :delete, data: {confirm: "Are you sure to delete?"}, :class => 'btn btn-danger' %></td>
+							</tr>
+					<% end %>
+  				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+</div>

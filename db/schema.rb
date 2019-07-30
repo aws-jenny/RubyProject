@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20190729021658) do
 
   create_table "business_units", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
+    t.integer "users_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

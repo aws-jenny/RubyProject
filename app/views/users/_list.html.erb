@@ -1,0 +1,39 @@
+<div id="filterrific_results">
+
+	<div class="col-sm-12">
+		<div class="col-sm-offset-2 col-sm-8">
+			<div>
+				<%= page_entries_info users %>
+  			</div><br />
+
+			<table class="table table-striped text-center">
+				<thead>
+    				<tr>
+      					<th class="text-center">Name</th>
+      					<th class="text-center">BU</th>
+      					<th class="text-center">Role</th>
+      					<th></th>
+    				</tr>
+  				</thead>
+
+  				<tbody>
+    				<% users.each do |user|%>
+						<tr>
+							<td><%= user.first_name + " " + user.last_name %></td>
+							<td><%= user.business_unit.blank? ? "" : user.business_unit.name %></td>
+							<td><%= "Admin" if user.isAdmin? %></td>
+							<td><%= link_to 'View', user_path(user), :class => 'btn btn-default' %>
+								<%= link_to 'Edit', edit_user_path(user), :class => 'btn btn-primary' %>
+								<%= link_to 'Delete', user_path(user), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %></td>
+						</tr>
+					<% end %>
+  				</tbody>
+			</table>
+			<div class="pull-right">
+				<%= will_paginate users %>
+			</div>
+
+		</div>
+	</div>
+
+</div>

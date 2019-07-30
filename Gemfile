@@ -56,3 +56,6 @@ gem 'jquery-rails'
 
 gem 'chartkick'
 gem 'highcharts-rails'
+
+gem 'filterrific'
+gem 'will_paginate', '>= 3.1'

@@ -4,6 +4,16 @@ class CertificatesController < ApplicationController
 
   def index
     @certificates = Certificate.all
+
+    @passed_certs = UserCertificateRecord.where(status: 'Passed')
+    @get_top = @passed_certs.joins(:certificate).group(:name).count
+
+    @get_top = @get_top.sort_by { |key, val| -val }.to_h
+
+    puts "jano"
+    puts @get_top.keys[0]
+    puts "jano"
+
   end
 
   def show

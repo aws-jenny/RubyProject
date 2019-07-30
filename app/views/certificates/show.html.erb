@@ -6,6 +6,9 @@
       <%= @certificate.name %>
       <% unless @record.blank? %>
         <small>
+        <span class="label label-primary"><%= '<i class="glyphicon glyphicon-tag" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => @certificate.id) && @record.status != "Passed" %></span>
+        <span class="label label-primary"><%= '<i class="glyphicon glyphicon-certificate" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => @certificate.id) && @record.status == "Passed" %></span>
+        <span ><%= '<i class="glyphicon glyphicon-heart-empty" style="color:red"></i>'.html_safe if @record.status == "Wished" %></span>
         <span class="label label-default"><%= @record.status if @record.status == "Ongoing" %></span>
         <span class="label label-warning"><%= @record.status if @record.status == "Taken" %></span>
         <span class="label label-warning"><%= "For Retake" if @record.status == "Failed" %></span>
@@ -19,7 +22,7 @@
     <br />
 
     <% if current_user.certificates.exists?(@certificate.id) %>
-      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, data: {confirm: "Are you sure to remove certificate from your list?"}, :class => 'btn btn-sm btn-danger' if @record.status == 'Ongoing' %>
+      <%= link_to 'Remove from wishlist', user_certificate_record_path(@record), method: :delete, data: {confirm: "Are you sure to remove certificate from your list?"}, :class => 'btn btn-sm btn-danger' if @record.status == 'Wished' %>
     <% else %>
       <%= link_to "Add to my wishlist", user_certificate_records_path(@certificate.id), method: :post, :class => 'btn btn-sm btn-primary' %>
     <% end %>
@@ -34,7 +37,7 @@
   </div>
   <div class="col-sm-5">
     <% unless @record.blank? %>
-      <% if @record.status == "Ongoing" || @record.status == "Failed" %>
+      <% if @record.status == "Wished" || @record.status == "Ongoing" || @record.status == "Failed" %>
         <h3>Take Exam</h3>
         <%= render "exam_histories/add_exam_history" %>
       <% end %>

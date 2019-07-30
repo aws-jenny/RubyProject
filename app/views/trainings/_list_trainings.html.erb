@@ -43,12 +43,17 @@
                         <% @toStart = false %>
                     <% end %>
                 <% end %>
-                <% if @toStart == true %>
-                    <%= link_to "Start", user_training_records_path(training.id.to_s<<"_"<<@certificate.id.to_s), method: :post, :class => 'btn btn-secondary' %>
+                <% unless @record.blank? %>
+                    <% if @toStart == true %>
+                        <%= link_to "Start", user_training_records_path(training.id.to_s<<"_"<<@certificate.id.to_s), method: :post, :class => 'btn btn-secondary' %>
+                        ---
+                    <% end %>
                 <% end %>
 
                 <% if current_user.isAdmin? %>
-                    ---
+                    <% if @toStart == false %>
+                        ---
+                    <% end %>
                     <%= link_to 'Edit', edit_certificate_training_path(@certificate, training), {:class => 'btn btn-sm btn-info'}  %> |
                     <%= link_to 'Delete', [training.certificate, training],
                         method: :delete,

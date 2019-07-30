@@ -12,6 +12,7 @@
 				<thead>
     			<tr>
       			<th class="text-center">Name</th>
+      			<th class="text-center">BU</th>
       			<th class="text-center">Role</th>
       			<th></th>
     			</tr>
@@ -20,6 +21,7 @@
     			<% @users.each do |user|%>
 						<tr>
 							<td><%= user.first_name + " " + user.last_name %></td>
+							<td><%= user.business_unit.blank? ? "" : user.business_unit.name %></td>
 							<td><%= "Admin" if user.isAdmin? %></td>
 							<td>
 								<%= link_to 'View', user_path(user), :class => 'btn btn-default' %>

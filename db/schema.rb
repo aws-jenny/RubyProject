@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20190729072344) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "business_units", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", default: "", null: false
+    t.integer "users_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "certificates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
@@ -89,6 +96,8 @@ ActiveRecord::Schema.define(version: 20190729072344) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "business_unit_id"
+    t.index ["business_unit_id"], name: "index_users_on_business_unit_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -101,4 +110,5 @@ ActiveRecord::Schema.define(version: 20190729072344) do
   add_foreign_key "user_certificate_records", "users"
   add_foreign_key "user_training_records", "trainings"
   add_foreign_key "user_training_records", "users"
+  add_foreign_key "users", "business_units"
 end

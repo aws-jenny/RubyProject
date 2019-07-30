@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, except: [:new, :create]
   
   resources :certificates do
     resources :trainings
@@ -29,4 +29,6 @@ Rails.application.routes.draw do
     resources :exam_histories, :only => [:create]
   end
   resources :recommendations, :only => [:create, :destroy]
+
+  resources :business_units
 end

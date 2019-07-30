@@ -15,7 +15,7 @@
   							<center>No data to display.</center>
  						<% else %>
   							<% @ongoing.each do |record|%>
-        						<li><%= record.certificate.name %></li>
+        						<li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
  							<% end %>
 						<% end %>
 					</div>		
@@ -28,7 +28,7 @@
   							<center>No data to display.</center>
  						<% else %>
   							<% @taken.each do |record|%>
-        						<li><%= record.certificate.name %></li>
+        						<li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
  							<% end %>
 						<% end %>
 					</div>
@@ -41,7 +41,7 @@
   							<center>No data to display.</center>
  						<% else %>
   							<% @passed.each do |record|%>
-        						<li><%= record.certificate.name %></li>
+        						<li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
  							<% end %>
 						<% end %>
 					</div>

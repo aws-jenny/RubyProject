@@ -35,6 +35,13 @@
         </div>
 
         <div class="form-group">
+          <%= f.label :business_unit_id do %>
+            Business Unit<span class="required">*</span>
+          <% end %>
+          <%= f.collection_select(:business_unit_id, BusinessUnit.all.order('name'), :id, :name, {:prompt => 'Select Dev'}, {:class=>'form-control'}) %>
+        </div>
+
+        <div class="form-group">
           <%= f.check_box :isAdmin %>
           <%= f.label :isAdmin, 'Set as Admin' %>
         </div>

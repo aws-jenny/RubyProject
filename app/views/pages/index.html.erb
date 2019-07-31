@@ -7,6 +7,19 @@
 			</div>
 
 			<div class="panel-body">
+
+				<div class="panel panel-info">
+					<div class="panel-heading">On Wishlist</div>
+					<div class="panel-body">
+						<% if @onWish.size == 0 %>
+  							<center>No data to display.</center>
+ 						<% else %>
+  							<% @onWish.each do |record|%>
+        						<li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+ 							<% end %>
+						<% end %>
+					</div>
+				</div>
 				
 				<div class="panel panel-default">
 					<div class="panel-heading clearfix">Ongoing</div>
@@ -54,14 +67,28 @@
 
 	<div class="col-md-8" style="margin-top: 15px">
 		<div class="panel panel-default">
-			<div class="panel-heading text-center">Passers per Certification</div>
+			<div class="panel-heading text-center">
+				Top 5 Certifications
+			</div>
 			<div class="panel-body">
-		<%= bar_chart @passed_certs.joins(:certificate).group(:name).count, ytitle: "No. of Certified Users", messages: {empty: "No data"} %>
+				<%= bar_chart @top_certs, width: "730px", xtitle: "No. of Certified Users",  messages: {empty: "No data"} %>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">
+				Comparisons
+			</div>
+			<div class="panel-body">
+				<%= bar_chart [
+{name: "recommended", data: @recommendations.joins(:certificate).group(:name).count},
+{name: "test_name", data: @passed_certs.joins(:certificate).group(:name).count}
+], xtitle: "No. of Passers",  messages: {empty: "No data"}, width: "730px" %>
+			</div>
+			
+		</div> 
 	</div>
-	</div> 
-
-</div>
-
+	
 
 
  <%#= form_tag dashboard_path, method: "get", id: "filter" do %>

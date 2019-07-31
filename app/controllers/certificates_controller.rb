@@ -3,16 +3,13 @@ class CertificatesController < ApplicationController
   before_action :redirect_unless_admin, except: [:index, :show]
 
   def index
+    @categories = Category.all
     @certificates = Certificate.all
 
     @passed_certs = UserCertificateRecord.where(status: 'Passed')
     @get_top = @passed_certs.joins(:certificate).group(:name).count
 
     @get_top = @get_top.sort_by { |key, val| -val }.to_h
-
-    puts "jano"
-    puts @get_top.keys[0]
-    puts "jano"
 
   end
 
@@ -77,7 +74,7 @@ class CertificatesController < ApplicationController
   private
   
   def certificates_params
-    params.require(:certificate).permit(:name, :description, :exam_fee, :isReimbursable)
+    params.require(:certificate).permit(:name, :description, :exam_fee, :isReimbursable, :category_id)
   end
 
 end

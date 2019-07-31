@@ -4,42 +4,51 @@
 
 <hr />
 
-<% @certificates.each do |certificate| %>
-
-    <% if certificate.name == @get_top.keys[0] || certificate.name == @get_top.keys[1] || certificate.name == @get_top.keys[2] %>
-        <div class="well col-sm-4" style="overflow-y:auto; height:220px; background-color:lemonchiffon">
-    <% else %>
-        <div class="well col-sm-4" style="overflow-y:auto; height:220px">
-    <% end %>
-        <h4>
-            <span><%= '<i class="glyphicon glyphicon-fire" style="color:red"></i></i><i class="glyphicon glyphicon-fire" style="color:red"></i></i><i class="glyphicon glyphicon-fire" style="color:red"></i>'.html_safe if certificate.name == @get_top.keys[0] || certificate.name == @get_top.keys[1] || certificate.name == @get_top.keys[2] %></span>
-
-            <% @passed = false %>
-            <% certificate.user_certificate_records.each do |user_cert_record| %>
-                <% if user_cert_record.user_id == current_user.id %>
-                    <% unless user_cert_record.blank? %>
-                        <span class="pull-right"><%= '<i class="glyphicon glyphicon-heart-empty" style="color:red"></i>'.html_safe if user_cert_record.status == "Wished" %></span>
-                        <span class="label label-default pull-right"><%= user_cert_record.status if user_cert_record.status == "Ongoing" %></span>
-                        <span class="label label-warning pull-right"><%= user_cert_record.status if user_cert_record.status == "Taken" %></span>
-                        <span class="label label-warning pull-right"><%= "For Retake" if user_cert_record.status == "Failed" %></span>
-                        <span class="label label-success pull-right"><%= user_cert_record.status if user_cert_record.status == "Passed" %></span>
-                        <% @passed = true if user_cert_record.status == "Passed" %>
-                    <% end %>
-                <% end %>
-            <% end %>
-
-            <span class="label label-primary pull-right"><%= '<i class="glyphicon glyphicon-tag" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => certificate.id) && !@passed %></span>
-            <span class="label label-primary pull-right"><%= '<i class="glyphicon glyphicon-certificate" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => certificate.id) && @passed %></span>
-        </h4>
-        <h3>
-            <%= certificate.name %>
-        </h3>
-        <p><%= certificate.description[0..30].gsub(/\s\w+\s*$/,'...') %></p>
-
-        
-
-        <%= link_to "Read More", certificate_path(certificate), :class => 'btn btn-default' %>
-
+<% @categories.each_with_index do |category, cat_index| %>
+    <div class="well well-sm col-sm-12" data-toggle="collapse" data-target="#<%= category.name %>">
+        <strong><%= category.name %></strong> 
+        <% if category.certificates.size > 0 %>
+            <span class="glyphicon glyphicon-menu-down pull-right"></span>
+        <% end %>
     </div>
+    <div id="<%= category.name %>" class="collapse">
+        <% category.certificates.each do |certificate| %>
+            <% if certificate.name == @get_top.keys[0] || certificate.name == @get_top.keys[1] || certificate.name == @get_top.keys[2] %>
+                <div class="well col-sm-4" style="overflow-y:auto; height:220px; background-color:lemonchiffon">
+            <% else %>
+                <div class="well col-sm-4" style="overflow-y:auto; height:220px">
+            <% end %>
+                <h4>
+                    <span><%= '<i class="glyphicon glyphicon-fire" style="color:red"></i></i><i class="glyphicon glyphicon-fire" style="color:red"></i></i><i class="glyphicon glyphicon-fire" style="color:red"></i>'.html_safe if certificate.name == @get_top.keys[0] || certificate.name == @get_top.keys[1] || certificate.name == @get_top.keys[2] %></span>
 
+                    <% @passed = false %>
+                    <% certificate.user_certificate_records.each do |user_cert_record| %>
+                        <% if user_cert_record.user_id == current_user.id %>
+                            <% unless user_cert_record.blank? %>
+                                <span class="pull-right"><%= '<i class="glyphicon glyphicon-heart-empty" style="color:red"></i>'.html_safe if user_cert_record.status == "Wished" %></span>
+                                <span class="label label-default pull-right"><%= user_cert_record.status if user_cert_record.status == "Ongoing" %></span>
+                                <span class="label label-warning pull-right"><%= user_cert_record.status if user_cert_record.status == "Taken" %></span>
+                                <span class="label label-warning pull-right"><%= "For Retake" if user_cert_record.status == "Failed" %></span>
+                                <span class="label label-success pull-right"><%= user_cert_record.status if user_cert_record.status == "Passed" %></span>
+                                <% @passed = true if user_cert_record.status == "Passed" %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+
+                    <span class="label label-primary pull-right"><%= '<i class="glyphicon glyphicon-tag" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => certificate.id) && !@passed %></span>
+                    <span class="label label-primary pull-right"><%= '<i class="glyphicon glyphicon-certificate" style="color:yellow"></i>'.html_safe  if current_user.recommendations.exists?(:certificate_id => certificate.id) && @passed %></span>
+                </h4>
+                <h3>
+                    <%= certificate.name %>
+                </h3>
+                <p><%= certificate.description[0..30].gsub(/\s\w+\s*$/,'...') %></p>
+
+                
+
+                <%= link_to "Read More", certificate_path(certificate), :class => 'btn btn-default' %>
+
+            </div>
+        <% end %>
+    </div>
+    
 <% end %>

@@ -10,8 +10,20 @@ class UserTrainingRecordsController < ApplicationController
 
     @utr = UserTrainingRecord.new(utr_params)
 
+    @utr.training.certificate.user_certificate_records.each do |ucr|
+      if ucr.user_id == current_user.id
+        if ucr.status == 'Wished'
+          if !ucr.update(status: 'Ongoing')
+            flash[:danger] = "Something went wrong"
+
+            redirect_to certificate_path(req_params[1])
+          end
+        end
+      end
+    end
+
     if @utr.save
-        flash[:success] = "Added successfully"
+        flash[:success] = "Training started"
     else
         flash[:danger] = "Something went wrong"
     end

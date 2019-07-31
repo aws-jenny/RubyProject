@@ -1,0 +1,20 @@
+<hr />
+<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#recommendations">Recommend <span class="caret"></span></button>
+
+<div class="row">
+    <div id="recommendations" class="collapse">
+    <% @certificates.each do |certificate| %>
+        <div class="well well-sm col-sm-offset-1 col-sm-9">
+        <%= certificate.name %>
+        <% if @user.recommendations.exists?(:certificate_id => certificate.id) %>
+            <%= link_to 'Unrecommend', recommendation_path(@user.id.to_s<<"_"<<certificate.id.to_s), method: :delete, data: {confirm: "Are you sure to unrecommend this certificate?"}, :class => 'btn btn-xs btn-danger pull-right' %>
+        <% else %>
+            <%= link_to "Recommend", recommendations_path(@user.id.to_s<<"_"<<certificate.id.to_s), method: :post, :class => 'btn btn-xs btn-primary pull-right' %>
+        <% end %>
+        </div>
+    <% end %>
+    </div>
+</div>
+<div class="row">
+    <hr />
+</div>

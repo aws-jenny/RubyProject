@@ -5,51 +5,13 @@
   </div>
 
   <div class="col-sm-12">
-      <% @user.user_certificate_records.each_with_index do |record, hist_index|%>
-        <div class="well well-sm col-sm-offset-2 col-sm-8">
-          <h3>
-            <%= record.certificate.name %>
-            <small>
-            <span class="label label-default pull-right"><%= record.status if record.status == "Ongoing" %></span>
-            <span class="label label-warning pull-right"><%= record.status if record.status == "Taken" %></span>
-            <span class="label label-success pull-right"><%= record.status if record.status == "Passed" %></span>
-            <span class="label label-warning pull-right"><%= "For Retake" if record.status == "Failed" %></span>
-            </small>
-          </h3>
-          <div class="col-sm-12">
-            <% record.exam_histories.each_with_index do |exam, index| %>
-              <% if exam.equal?(record.exam_histories.last) %>
-                <% if record.status == 'Taken' %>
-                  Exam Code: <strong><%= exam.examinee_code %> </strong> | Exam Date: <strong> <%= exam.exam_date %> </strong> <br />
-                  <%= link_to 'Set to Passed', user_certificate_record_path(record, :status => "Passed"), method: :put, :class => 'btn btn-xs btn-primary' %> |
-                  <%= link_to 'Set to Failed', user_certificate_record_path(record, :status => "Failed"), method: :put, :class => 'btn btn-xs btn-danger' %>
-                <% end %>
-                <div class="pull-right">
-                  <% if record.status == 'Failed' %>
-                    Last exam: <strong><%= exam.exam_date %> | </strong>
-                  <% end %>
-                  No. of times taken: <strong><%= index+1 %></strong>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <ul>
-          <% @user.user_training_records.each do |training_record| %>
-              <% if training_record.training.certificate_id  == record.certificate_id && training_record.isDone? %>
-                <li>
-                  <%= training_record.training.name %>
-                </li>
-              <% end %>
-          <% end %>
-          </ul>
-          <button type="button" class="btn btn-xs" data-toggle="collapse" data-target="#<%= hist_index %>">Exam History <span class="caret"></span></button>
-          <div id="<%= hist_index %>" class="collapse">
-            <% record.exam_histories.each_with_index do |exam, index| %>
-              Exam Code: <strong><%= exam.examinee_code %> </strong> | Exam Date: <strong> <%= exam.exam_date %> </strong> <br />
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-  </div>
+    <% if !@certificates.empty? %>
+      <%= render "recommendations/for_recommendation" %>
+    <% end %>
+
+  
+    <div>
+      <%= render "users/user_certificate_list" %>
+    </div>
 
 </div>

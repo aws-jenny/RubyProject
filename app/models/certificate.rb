@@ -5,6 +5,7 @@ class Certificate < ApplicationRecord
     has_many :user_certificate_records
     has_many :users, through: :user_certificate_records
     has_many :recommendations
+    belongs_to :category, counter_cache: true
     
     validates :name, presence: true
 end

@@ -29,6 +29,6 @@ Rails.application.routes.draw do
     resources :exam_histories, :only => [:create]
   end
   resources :recommendations, :only => [:create, :destroy]
-
   resources :business_units
+  resources :categories
 end

@@ -26,6 +26,11 @@
         <%= f.select :isReimbursable, [['Yes',true],['No',false]], {:class => 'form-control'} %>
     </p>
 
+    <p class="field">
+        <%= f.label :category_id %>
+        <%= f.select :category_id, Category.all.collect {|x| [x.name, x.id]}, {:include_blank => "Select Category"}, :class => "form-control" %>
+    </p>
+
     <p>
         <%=f.submit({:class => 'btn btn-primary'}) %>
     </p>

@@ -4,7 +4,11 @@
 			<h3>Target Certifications for FY</h3>
 		</div>
 		<div class="col-md-2" style="margin-top: 15px">
-			<%= select_year(Date.today, {start_year: 1992, end_year: Date.today.year}, {:id => 'year', :class => 'form-control'}) %>
+			<%= form_tag targets_path, method: "get", id: "filter" do %>
+				<%= select_year(Date.today, {start_year: 1992, end_year: Date.today.year}, {:id => 'year', :class => 'form-control', :onchange =>'this.form.submit()'}) %>
+  	<%#= select_tag :status, options_for_select([['All'], ['Ongoing'], ['Taken'], ['Passed']], :selected => params[:status]), :class => 'form-control', :onchange => 'this.form.submit();' %>
+ 			<% end %>
+			
 		</div>
 
 		<div class="col-md-2 pull-right" style="margin-top: 15px;">
@@ -26,7 +30,12 @@
     			</tr>
   			</thead>
   			<tbody>
-    			
+    			<% @target_certifications.each do |target| %>
+    				<tr>
+    					<td><%= target.certificate.name %></td>
+    					<td><%= target.target_passers %></td>
+    				</tr>
+    			<% end %>
   			</tbody>
 			</table>
 		</div>

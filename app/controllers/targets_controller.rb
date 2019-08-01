@@ -1,6 +1,6 @@
 class TargetsController < ApplicationController
 	def index
-
+		@target_certifications = Target.joins(:certificate).where(fiscal_year: '2019')
 	end
 
 	def new
@@ -21,6 +21,6 @@ class TargetsController < ApplicationController
 
 	private
 	def target_params
-		params.require(:target).permit(:fiscal_year, :certificate_id, :target_passers)		
+		params.require(:target).permit(:fiscal_year, :certificate_id, :target_passers)
 	end
 end

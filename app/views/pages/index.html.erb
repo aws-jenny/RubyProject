@@ -77,13 +77,14 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading text-center">
-				Comparisons
+				Comparison between total # of Recommended users and # of recommended users who have already passed the certification
 			</div>
 			<div class="panel-body">
 				<%= bar_chart [
-{name: "recommended", data: @recommendations.joins(:certificate).group(:name).count},
-{name: "test_name", data: @passed_certs.joins(:certificate).group(:name).count}
-], xtitle: "No. of Passers",  messages: {empty: "No data"}, width: "730px" %>
+						{name: "recommended users", data: @recommendations.joins(:certificate).group(:name).count},
+						{name: "recommended users who passed", data: @recommended_and_passed}
+					], 
+					xtitle: "No. of Passers",  messages: {empty: "No data"}, width: "730px" %>
 			</div>
 			
 		</div> 

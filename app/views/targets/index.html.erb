@@ -1,12 +1,34 @@
 <div class="row">
 	<div class="col-sm-12">
-		<div class="col-sm-2">
-			<label for="year">FY</label>
+		<div class="col-md-4">
+			<h3>Target Certifications for FY</h3>
+		</div>
+		<div class="col-md-2" style="margin-top: 15px">
 			<%= select_year(Date.today, {start_year: 1992, end_year: Date.today.year}, {:id => 'year', :class => 'form-control'}) %>
 		</div>
 
-		<div class="col-sm-2">
+		<div class="col-md-2 pull-right" style="margin-top: 15px;">
 			<%= link_to 'Add Target', new_target_path, :class => 'btn btn-primary' %>
 		</div>
 	</div>
+
+
+
+		<div class="col-sm-12">
+			<br>
+			<div class="col-sm-offset-2 col-sm-8">
+			<table class="table table-striped text-center">
+				<thead>
+    			<tr>
+      			<th class="text-center">Certification</th>
+      			<th class="text-center"># of Users</th>
+      			<th></th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    			
+  			</tbody>
+			</table>
+		</div>
+		</div>
 </div>

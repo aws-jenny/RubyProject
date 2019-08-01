@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190729072344) do
+ActiveRecord::Schema.define(version: 20190730070504) do
 
   create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "certificate_id"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20190729072344) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "certificates_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "certificates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
@@ -33,6 +40,8 @@ ActiveRecord::Schema.define(version: 20190729072344) do
     t.boolean "isReimbursable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_certificates_on_category_id"
   end
 
   create_table "exam_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -102,6 +111,7 @@ ActiveRecord::Schema.define(version: 20190729072344) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "certificates", "categories"
   add_foreign_key "exam_histories", "user_certificate_records"
   add_foreign_key "recommendations", "certificates"
   add_foreign_key "recommendations", "users"

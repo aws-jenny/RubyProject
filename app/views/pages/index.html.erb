@@ -7,6 +7,19 @@
 			</div>
 
 			<div class="panel-body">
+
+				<div class="panel panel-info">
+					<div class="panel-heading">On Wishlist</div>
+					<div class="panel-body">
+						<% if @onWish.size == 0 %>
+  							<center>No data to display.</center>
+ 						<% else %>
+  							<% @onWish.each do |record|%>
+        						<li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+ 							<% end %>
+						<% end %>
+					</div>
+				</div>
 				
 				<div class="panel panel-default">
 					<div class="panel-heading clearfix">Ongoing</div>

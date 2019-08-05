@@ -15,5 +15,5 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
-
 //= require chartkick
+//= require filterrific/filterrific-jquery

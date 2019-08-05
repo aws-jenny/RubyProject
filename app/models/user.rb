@@ -11,4 +11,26 @@ class User < ApplicationRecord
   has_many :certificates, through: :user_certificate_records
   has_many :recommendations
   belongs_to :business_unit, counter_cache: true
+
+  filterrific(
+   default_filter_params: {},
+   available_filters: [
+     #:sorted_by,
+     :search_query,
+     :with_business_unit_id,
+   ]
+ )
+
+  scope :search_query, -> (query) {
+    where("first_name LIKE ? OR last_name LIKE ?", "%#{query}%", "%#{query}%")
+  }
+
+  scope :with_business_unit_id, -> (bu_id) {
+  	where(business_unit_id: bu_id)   
+  }
+
+  # scope :sorted_by, -> (sort_key) {
+  #   # Sorts students by sort_key
+  # }
+
 end

@@ -3,7 +3,23 @@ class UsersController < ApplicationController
 	before_action :redirect_unless_admin
 
 	def index
-		@users = User.all
+		#@users = User.all
+
+    @filterrific = initialize_filterrific(
+      User,
+      params[:filterrific],
+      select_options: {
+        #sorted_by: Student.options_for_sorted_by,
+        with_business_unit_id: BusinessUnit.order("LOWER(name)").map { |e| [e.name, e.id] }
+      }
+    ) or return
+    @users = @filterrific.find.page(params[:page]).per_page(10)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
 	end
 
   def show

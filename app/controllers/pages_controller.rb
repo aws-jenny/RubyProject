@@ -10,36 +10,30 @@ class PagesController < ApplicationController
 		@taken = current_user.user_certificate_records.where(status: 'Taken')
 		@passed = current_user.user_certificate_records.where(status: 'Passed')
 
-		#@passed_certs = UserCertificateRecord.joins(:certificate).where(status: 'Passed')
 		@top_certs = UserCertificateRecord.joins(:certificate).where(status: 'Passed').group(:name).order('count_id desc').
 					limit(5).count('id')
-		@recommendations = Recommendation.all
 
-		@user_ids = @recommendations.map{ |x| x.user_id}
-		@cert_ids = @recommendations.map{ |x| x.certificate_id}
+		#query for getting all recommendations and # of passers who have been recommended for the certification
+		# @recommendations = Recommendation.all
+		# @user_ids = @recommendations.map{ |x| x.user_id}
+		# @cert_ids = @recommendations.map{ |x| x.certificate_id}
+		# @recommended_and_passed = UserCertificateRecord.joins(:certificate).where(status: 'Passed', user_id: @user_ids,
+		# 	certificate_id: @cert_ids).group(:name).count('id')\\
 
-		@recommended_and_passed = UserCertificateRecord.joins(:certificate).where(status: 'Passed', user_id: @user_ids,
-			certificate_id: @cert_ids).group(:name).count('id')
 		
-		#@recommended_and_passed = []
+		@selected_fy = CURRENT_FISCAL_YEAR
+		if params.has_key?(:selected_fy)
+			@selected_fy = params[:selected_fy]
+		end
 
-		#@recommendations.each do |recommended|
-
-			#@record = (UserCertificateRecord.where(user_id: recommended.user_id, certificate_id: recommended.certificate_id, status: 'Passed'))
+		@targets = Target.joins(:certificate).where(fiscal_year: @selected_fy)
+		@target_certification_ids = @targets.map{ |x| x.certificate_id}
+	
+		@fy_passers = UserCertificateRecord.joins(:exam_histories)
+											.where(status: 'Passed', 
+													certificate_id: @target_certification_ids,
+													exam_histories: {exam_date: Date.new(@selected_fy.to_i, 4, 1)..Date.new(@selected_fy.to_i + 1, 3, 31)})
+		#@fy_passers = UserCertificateRecord.joins(:exam_histories).where("status = 'Passed' AND user_certificate_records.certificate_id in (?) AND exam_date between ? AND ?", @target_certification_ids, Date.new(@selected_fy.to_i, 4, 1), Date.new(@selected_fy.to_i + 1, 3, 31))
 				
-				# @passed_certs.each do |record|
-				# 	if(record.user_id == recommended.user_id && record.certificate_id == recommended.certificate_id)
-				# 		@recommended_and_passed.push(record)
-				# 	end
-				# end
-
-			# unless @record.blank?
-			# 	@recommended_and_passed.push(@record)
-			# end
-		# end
-
-		# puts @recommended_and_passed.size
-		 # select certificate_id, count(certificate_id) as "certified users" from user_certificate_records where status = 'Ongoing' 
- # 	group by certificate_id order by count(certificate_id) desc;
 	end
 end

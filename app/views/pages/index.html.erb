@@ -68,40 +68,32 @@
 	<div class="col-md-8" style="margin-top: 15px">
 		<div class="panel panel-default">
 			<div class="panel-heading text-center">
-				Top 5 Certifications
+				<%= current_user.isAdmin? ? "FY Targets" : "Top 5 Certifications" %>
 			</div>
 			<div class="panel-body">
-				<%= bar_chart @top_certs, width: "730px", xtitle: "No. of Certified Users",  messages: {empty: "No data"} %>
+				<% if current_user.isAdmin? %>
+					<div class="col-sm-12">
+						<div class="col-sm-2">
+							<%= form_tag authenticated_root_path, method: "get", id: "filter" do %>
+  								<%= select_tag :selected_fy, options_for_select((Time.now.year).downto(Time.now.year - 100).to_a, :selected => params[:selected_fy]), :class => 'form-control', :onchange => 'this.form.submit();' %>
+ 							<% end %>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<%= bar_chart [
+							{name: "target", data: @targets.group(:name).sum(:target_passers)},
+							{name: "actual passers", data: @fy_passers.joins(:certificate).group(:name).count}
+						], xtitle: "No. of Passers",  messages: {empty: "No data"}, width: "730px" %>
+					</div>
+				<% else %>
+					<%= bar_chart @top_certs, width: "730px", xtitle: "No. of Certified Users",  messages: {empty: "No data"} %>
+				<% end %>
+				
 			</div>
 		</div>
-
-		<div class="panel panel-default">
-			<div class="panel-heading text-center">
-				Comparison between total # of Recommended users and # of recommended users who have already passed the certification
-			</div>
-			<div class="panel-body">
-				<%= bar_chart [
-						{name: "recommended users", data: @recommendations.joins(:certificate).group(:name).count},
-						{name: "recommended users who passed", data: @recommended_and_passed}
-					], 
-					xtitle: "No. of Passers",  messages: {empty: "No data"}, width: "730px" %>
-			</div>
-			
-		</div> 
 	</div>
 	
-
-
- <%#= form_tag dashboard_path, method: "get", id: "filter" do %>
-  	<%#= select_tag :status, options_for_select([['All'], ['Ongoing'], ['Taken'], ['Passed']], :selected => params[:status]), :class => 'form-control', :onchange => 'this.form.submit();' %>
- <%# end %>
-
- <%# if @user_certificates.size == 0 %>
-  	<!-- <center>No data to display.</center> -->
- <%# else %>
-  	<%# @user_certificates.each do |record|%>
-        <%#= record.certificate.name %>
- 	<%# end %>
-<%# end %>
+</div>
  
 

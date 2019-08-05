@@ -17,3 +17,4 @@
 //= require bootstrap-sprockets
 //= require highcharts
 //= require chartkick
+//= require filterrific/filterrific-jquery

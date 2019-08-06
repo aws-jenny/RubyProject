@@ -1,0 +1,53 @@
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">On Wishlist</div>
+        <div class="panel-body">
+            <% if @onWish.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @onWish.each do |record|%>
+                    <li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">Ongoing</div>
+        <div class="panel-body">
+            <% if @ongoing.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @ongoing.each do |record|%>
+                    <li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+                <% end %>
+            <% end %>
+        </div>		
+    </div>
+                
+    <div class="panel panel-warning">
+        <div class="panel-heading">Taken</div>
+        <div class="panel-body">
+            <% if @taken.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @taken.each do |record|%>
+                    <li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Passed</div>
+        <div class="panel-body">
+            <% if @passed.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @passed.each do |record|%>
+                    <li><%= link_to record.certificate.name, certificate_path(record.certificate), style: 'color:#000000;' %></li>
+                <% end %>
+            <% end %>
+        </div>
+    </div>

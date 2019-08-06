@@ -1,0 +1,89 @@
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading" data-toggle="collapse" data-target="#recommended">Recommended <span class="glyphicon glyphicon-menu-down pull-right"></span></div>
+        <div id="recommended" class="panel-body collapse">
+            <% if @recommended.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @same = "notsame" %>
+                <% @recommended.each do |record|%>
+                    <p>
+                        <% if @same != record.certificate.name %>
+                            <% @same = record.certificate.name %>
+                            <strong><%= record.certificate.name %></strong>
+                        <% end %>
+                        <li>
+                            <%= "#{record.user.last_name}, #{record.user.first_name}" %>
+                        </li>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-target="#trainings">Ongoing Trainings <span class="glyphicon glyphicon-menu-down pull-right"></span></div>
+        <div id="trainings" class="panel-body collapse">
+            <% if @trainings.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @same = "notsame" %>
+                <% @trainings.each do |record|%>
+                    <p>
+                        <% if @same != record.certificate.name %>
+                            <% @same = record.certificate.name %>
+                            <strong><%= record.certificate.name %></strong>
+                        <% end %>
+                        <li>
+                            <%= "#{record.user.last_name}, #{record.user.first_name}" %>
+                        </li>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>		
+    </div>
+                
+    <div class="panel panel-warning">
+        <div class="panel-heading" data-toggle="collapse" data-target="#takers">Exam Takers <span class="glyphicon glyphicon-menu-down pull-right"></span></div>
+        <div id="takers" class="panel-body collapse">
+            <% if @takers.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @same = "notsame" %>
+                <% @takers.each do |record|%>
+                    <p>
+                        <% if @same != record.certificate.name %>
+                            <% @same = record.certificate.name %>
+                            <strong><%= record.certificate.name %></strong>
+                        <% end %>
+                        <li>
+                            <%= "#{record.user.last_name}, #{record.user.first_name}" %>
+                        </li>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading" data-toggle="collapse" data-target="#passers">Passers <span class="glyphicon glyphicon-menu-down pull-right"></span></div>
+        <div id="passers" class="panel-body collapse">
+            <% if @passers.size == 0 %>
+                <center>No data to display.</center>
+            <% else %>
+                <% @same = "notsame" %>
+                <% @passers.each do |record|%>
+                    <p>
+                        <% if @same != record.certificate.name %>
+                            <% @same = record.certificate.name %>
+                            <strong><%= record.certificate.name %></strong>
+                        <% end %>
+                        <li>
+                            <%= "#{record.user.last_name}, #{record.user.first_name}" %>
+                        </li>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>

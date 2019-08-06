@@ -17,9 +17,11 @@
               <% if exam.equal?(record.exam_histories.last) %>
                 <% @exam_exist = true %>
                 <% if record.status == 'Taken' %>
-                  Exam Code: <strong><%= exam.examinee_code %> </strong> | Exam Date: <strong> <%= exam.exam_date %> </strong> <br />
-                  <%= link_to 'Set to Passed', user_certificate_record_path(record, :status => "Passed"), method: :put, :class => 'btn btn-xs btn-primary' %> |
-                  <%= link_to 'Set to Failed', user_certificate_record_path(record, :status => "Failed"), method: :put, :class => 'btn btn-xs btn-danger' %>
+                  <p>
+                    Exam Code: <strong><%= exam.examinee_code %> </strong> | Exam Date: <strong> <%= exam.exam_date %> </strong> <br />
+                    <%= link_to 'Set to Passed', user_certificate_record_path(record, :status => "Passed"), method: :put, :class => 'btn btn-xs btn-primary' %> |
+                    <%= link_to 'Set to Failed', user_certificate_record_path(record, :status => "Failed"), method: :put, :class => 'btn btn-xs btn-danger' %>
+                  </p>
                 <% end %>
                 <div class="pull-right">
                   <% if record.status == 'Failed' %>

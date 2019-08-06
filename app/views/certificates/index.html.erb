@@ -5,13 +5,13 @@
 <hr />
 
 <% @categories.each_with_index do |category, cat_index| %>
-    <div class="well well-sm col-sm-12" data-toggle="collapse" data-target="#<%= category.name %>">
+    <div class="well well-sm col-sm-12" data-toggle="collapse" data-target="#<%= cat_index %>">
         <strong><%= category.name %></strong> 
         <% if category.certificates.size > 0 %>
             <span class="glyphicon glyphicon-menu-down pull-right"></span>
         <% end %>
     </div>
-    <div id="<%= category.name %>" class="collapse">
+    <div id="<%= cat_index %>" class="collapse">
         <% category.certificates.each do |certificate| %>
             <% if certificate.name == @get_top.keys[0] || certificate.name == @get_top.keys[1] || certificate.name == @get_top.keys[2] %>
                 <div class="well col-sm-4" style="overflow-y:auto; height:220px; background-color:lemonchiffon">

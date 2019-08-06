@@ -25,10 +25,13 @@ Rails.application.routes.draw do
 
   resources :associations, :only => [:create, :destroy]
   resources :user_training_records, :only => [:create, :update, :destroy]
+
   resources :user_certificate_records, only: [:create, :update, :destroy] do
     resources :exam_histories, :only => [:create]
   end
+
   resources :recommendations, :only => [:create, :destroy]
   resources :business_units
   resources :categories
+  resources :targets
 end

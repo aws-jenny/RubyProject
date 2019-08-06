@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190730070504) do
+ActiveRecord::Schema.define(version: 20190731083705) do
 
   create_table "associations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "certificate_id"
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(version: 20190730070504) do
     t.datetime "updated_at", null: false
     t.index ["certificate_id"], name: "index_recommendations_on_certificate_id"
     t.index ["user_id"], name: "index_recommendations_on_user_id"
+  end
+
+  create_table "targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "fiscal_year", default: "", null: false
+    t.bigint "certificate_id"
+    t.integer "target_passers", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_id"], name: "index_targets_on_certificate_id"
   end
 
   create_table "trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -115,6 +124,7 @@ ActiveRecord::Schema.define(version: 20190730070504) do
   add_foreign_key "exam_histories", "user_certificate_records"
   add_foreign_key "recommendations", "certificates"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "targets", "certificates"
   add_foreign_key "trainings", "certificates"
   add_foreign_key "user_certificate_records", "certificates"
   add_foreign_key "user_certificate_records", "users"

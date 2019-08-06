@@ -13,6 +13,11 @@ class PagesController < ApplicationController
 		@top_certs = UserCertificateRecord.joins(:certificate).where(status: 'Passed').group(:name).order('count_id desc').
 					limit(5).count('id')
 
+		@recommended = Recommendation.all.order(:certificate_id)
+		@trainings = UserCertificateRecord.where(status: 'Ongoing').order(:certificate_id)
+		@takers = UserCertificateRecord.where(status: 'Taken').order(:certificate_id)
+		@passers = UserCertificateRecord.where(status: 'Passed').order(:certificate_id)
+
 		#query for getting all recommendations and # of passers who have been recommended for the certification
 		# @recommendations = Recommendation.all
 		# @user_ids = @recommendations.map{ |x| x.user_id}

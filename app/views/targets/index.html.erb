@@ -1,0 +1,47 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="col-md-4">
+			<h3>Target Certifications for FY</h3>
+		</div>
+		<div class="col-md-2" style="margin-top: 15px">
+			<%= form_tag targets_path, method: "get", id: "filter" do %>
+				<%#= select_year(@selected_fy, {start_year: 2000, end_year: @current_fiscal_year}, {:id => 'year', :class => 'form-control', :onchange =>'this.form.submit()'}) %>
+  				<%= select_tag :selected_fy, options_for_select((Time.now.year).downto(Time.now.year - 100).to_a, :selected => params[:selected_fy]), :class => 'form-control', :onchange => 'this.form.submit();' %>
+ 			<% end %>
+			
+		</div>
+
+		<div class="col-md-2 pull-right" style="margin-top: 15px;">
+			<%= link_to 'Add Target', new_target_path, :class => 'btn btn-primary' %>
+		</div>
+	</div>
+
+
+
+		<div class="col-sm-12">
+			<br>
+			<div class="col-sm-offset-2 col-sm-8">
+			<table class="table table-striped text-center">
+				<thead>
+    			<tr>
+      			<th class="text-center">Certification</th>
+      			<th class="text-center"># of Users</th>
+      			<th></th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    			<% @target_certifications.each do |target| %>
+    				<tr>
+    					<td><%= target.certificate.name %></td>
+    					<td><%= target.target_passers %></td>
+    					<td>
+    						<%= link_to 'Edit', edit_target_path(target), :class => 'btn btn-primary' %>
+							<%= link_to 'Delete', target_path(target), method: :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger' %>
+						</td>
+    				</tr>
+    			<% end %>
+  			</tbody>
+			</table>
+		</div>
+		</div>
+</div>

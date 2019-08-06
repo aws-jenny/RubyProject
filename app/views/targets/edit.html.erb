@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<h3>Add Target</h3>
+
+		<div class="col-sm-4 col-sm-offset-4">
+			<%= form_for @target do |f| %>
+				<div class="form-group">
+					<%= f.label(:fiscal_year, 'FY') %>
+					<%= f.select(:fiscal_year, (Time.zone.now.year).downto(Time.zone.now.year - 10).to_a, {}, {:class => "form-control"}) %>
+				</div>
+
+				<div class="form-group">
+					<%= f.label(:certificate_id, 'Certification') %>
+					<%= f.collection_select(:certificate_id, Certificate.all, :id, :name, {:prompt => 'Select Certificate'}, {:class=>'form-control'}) %>
+				</div>
+
+				<div class="form-group">
+					<%= f.label(:target_passers, 'Target number of Passers') %>
+					<%= f.number_field :target_passers, min: 0, step: 1, :class => 'form-control' %>
+				</div>
+
+				<div class="form-group text-center">
+					<%= f.submit 'Submit', :class => 'btn btn-primary' %>
+				</div>
+
+			<% end %>	
+		</div>
+	</div>
+</div>
